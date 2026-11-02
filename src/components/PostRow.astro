@@ -1,0 +1,16 @@
+---
+import { formatDate, readingTime, excerpt, postUrl, tagUrl, type Post } from '../site';
+interface Props { post: Post }
+const { post } = Astro.props;
+---
+<article class="row">
+  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+  <div class="row-body">
+    <h3><a href={postUrl(post)}><span class="ul">{post.data.title}</span><span class="arrow" aria-hidden="true">→</span></a></h3>
+    <p>{excerpt(post)}</p>
+    <div class="meta">
+      {post.data.tags.map((t) => <a class="tag" href={tagUrl(t)}>{t}</a>)}
+      <span>{readingTime(post.body)} 分钟阅读</span>
+    </div>
+  </div>
+</article>

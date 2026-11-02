@@ -1,0 +1,134 @@
+:root {
+  color-scheme: light;
+  --bg: #FFFFFF;
+  --ink: #1A1A1A;
+  --text: #2A2A2A;
+  --muted: #5C5C5C;
+  --soft-text: #4A5A53;
+  --line: #E6E6E3;
+  --border: #D4D4D0;
+  --surface: #FFFFFF;
+  --code-bg: #F4F4F1;
+  --pre-bg: #16181A;
+  --card-hover: #F6FBF8;
+  --header-bg: rgba(255,255,255,.88);
+  --green: #0E7A5A;
+  --green-deep: #0B5E45;
+  --green-soft: #EEF6F2;
+  --green-mid: #CDEBDD;
+  --green-hl: #9FD4BC;
+  --hl-text: #0B3D2C;
+  --on-green: #FFFFFF;
+  --shadow: rgba(14,122,90,.18);
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --sans: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111513;
+  --ink: #E8ECE9;
+  --text: #D3D9D5;
+  --muted: #9AA39E;
+  --soft-text: #A9B8B0;
+  --line: #252B28;
+  --border: #36403B;
+  --surface: #1A201D;
+  --code-bg: #1E2421;
+  --pre-bg: #0B0E0D;
+  --card-hover: #15201B;
+  --header-bg: rgba(17,21,19,.85);
+  --green: #4CC38A;
+  --green-deep: #7FD9AE;
+  --green-soft: #16251E;
+  --green-mid: #1F3B2F;
+  --green-hl: rgba(76,195,138,.32);
+  --hl-text: #E8ECE9;
+  --on-green: #0A1F15;
+  --shadow: rgba(0,0,0,.4);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--sans); color: var(--ink); background: var(--bg); transition: background-color .3s, color .3s; -webkit-font-smoothing: antialiased; }
+a { color: var(--ink); }
+a:hover { color: var(--green); }
+::selection { background: var(--green-mid); color: var(--hl-text); }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 24px; }
+
+/* header */
+.site-header { border-bottom: 1px solid var(--line); background: var(--header-bg); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+.site-header .wrap { padding-block: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; min-height: 44px; }
+.logo-mark { transition: transform .6s cubic-bezier(.3,1.6,.5,1); }
+.logo:hover .logo-mark { transform: rotate(-18deg) scale(1.08); }
+.logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+.logo-name { font-weight: 700; font-size: 18px; color: var(--ink); }
+.logo-slogan { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.nav { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-size: 15px; }
+.nav-link { position: relative; text-decoration: none; padding: 12px 14px; display: inline-flex; align-items: center; gap: 6px; }
+.nav-link::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 8px; height: 2px; border-radius: 2px; background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+.nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
+
+/* buttons & chips */
+.btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; text-decoration: none; font-weight: 500; font-size: 15px; transition: transform .2s ease, box-shadow .2s ease; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--shadow); }
+.btn-dark { background: var(--ink); color: var(--bg); }
+.btn-dark:hover { color: var(--bg); }
+.btn-green { background: var(--green); color: var(--on-green); }
+.btn-green:hover { color: var(--on-green); }
+.btn-ghost { border: 1px solid var(--border); }
+.tag { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--green-soft); color: var(--green-deep); font-size: 13px; text-decoration: none; transition: background-color .2s; }
+.tag:hover { background: var(--green-mid); color: var(--green-deep); }
+.chip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--border); text-decoration: none; font-size: 15px; transition: background-color .25s, border-color .25s, color .25s, transform .25s; }
+.chip:hover { background: var(--green-soft); border-color: var(--green); color: var(--green-deep); transform: translateY(-2px); }
+.chip span { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+
+/* section heading */
+.section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 16px; border-bottom: 2px solid var(--ink); }
+.section-head h2, .h2 { margin: 0; font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+
+/* post rows */
+.row { display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0; border-bottom: 1px solid var(--line); transition: transform .3s ease; }
+.row:hover { transform: translateX(6px); }
+.row time { flex: 0 0 120px; font-family: var(--mono); font-size: 14px; color: var(--muted); padding-top: 5px; transition: color .3s; }
+.row:hover time { color: var(--green); }
+.row-body { flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.row h3 { margin: 0; font-size: 21px; line-height: 1.45; font-weight: 700; }
+.row h3 a { text-decoration: none; }
+.ul { background-image: linear-gradient(var(--green-hl), var(--green-hl)); background-repeat: no-repeat; background-position: 0 92%; background-size: 0% 40%; transition: background-size .4s ease, color .2s; }
+.row:hover .ul { background-size: 100% 40%; color: var(--hl-text); }
+.arrow { display: inline-block; margin-left: 8px; color: var(--green); opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .3s; }
+.row:hover .arrow { opacity: 1; transform: none; }
+.row p { margin: 0; font-size: 16px; line-height: 1.75; color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }
+
+/* footer */
+.site-footer { border-top: 1px solid var(--line); }
+.site-footer .wrap { padding-block: 32px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; font-size: 14px; color: var(--muted); }
+.site-footer a { color: var(--muted); }
+
+.leaf-sway { transform-origin: 85% 90%; animation: sway 7s ease-in-out infinite; }
+@keyframes sway { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-4deg); } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* theme toggle */
+.theme-toggle { align-self: stretch; margin: 0; border: 0; background: none; font: inherit; font-size: 15px; color: var(--ink); cursor: pointer; }
+.theme-toggle:hover { color: var(--green); }
+.theme-toggle svg { transition: transform .5s cubic-bezier(.3,1.6,.5,1); }
+.theme-toggle:hover svg { transform: rotate(-30deg); }
+.theme-toggle .moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .moon { display: block; }
+
+/* motto */
+.footer-motto { padding-top: 40px !important; padding-bottom: 0 !important; justify-content: center !important; }
+.motto-block { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.motto { margin: 0; font-family: 'Zhi Mang Xing', cursive; color: var(--ink); line-height: 1.5; letter-spacing: .04em; cursor: default; transition: color .4s; }
+.motto:hover { color: var(--soft-text); }
+.motto .ge { position: relative; display: inline-block; transition: color .4s, transform .4s; }
+.motto:hover .ge { color: var(--green); transform: translateY(-2px); }
+.motto .note { position: absolute; left: 70%; top: -6px; color: var(--green); opacity: 0; transform: translate(0, 6px) rotate(0); transition: opacity .4s, transform .6s cubic-bezier(.3,1.6,.5,1); pointer-events: none; }
+.motto:hover .note { opacity: 1; transform: translate(6px, -12px) rotate(12deg); }
+.motto-en { margin: 0; font-size: 14px; font-style: italic; color: var(--muted); transition: color .4s; }
+.motto-block:hover .motto-en { color: var(--green); }

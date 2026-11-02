@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Leaf from '../../components/Leaf.astro';
+import PostRow from '../../components/PostRow.astro';
+import { getPosts, getTags } from '../../site';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return (await getTags()).map(({ name }) => ({
+    params: { tag: name },
+    props: { name, posts: posts.filter((p) => p.data.tags.includes(name)) },
+  }));
+}
+const { name, posts } = Astro.props;
+---
+<Base title={`分类：${name}`} current="tags">
+  <section class="wrap" style="padding-top:72px;padding-bottom:96px">
+    <a href="/tags/" style="display:inline-flex;align-items:center;min-height:44px;font-size:15px;color:var(--muted);text-decoration:none">← 全部分类</a>
+    <div class="section-head" style="margin-top:16px">
+      <h2><Leaf /> {name}</h2>
+      <span style="font-family:var(--mono);font-size:14px;color:var(--muted)">{posts.length} 篇</span>
+    </div>
+    {posts.map((post) => <PostRow post={post} />)}
+  </section>
+</Base>

@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import Leaf from '../../components/Leaf.astro';
+import { getTags, tagUrl } from '../../site';
+const tags = await getTags();
+---
+<Base title="分类" current="tags">
+  <section class="wrap" style="padding-top:72px;padding-bottom:96px">
+    <div class="section-head" style="margin-bottom:28px"><h2><Leaf /> 全部分类</h2></div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      {tags.map((t) => <a class="chip" href={tagUrl(t.name)}>{t.name}<span>{t.count}</span></a>)}
+    </div>
+  </section>
+</Base>

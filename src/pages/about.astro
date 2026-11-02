@@ -1,0 +1,163 @@
+---
+import fs from 'node:fs';
+import Base from '../layouts/Base.astro';
+import Leaf from '../components/Leaf.astro';
+import { SITE } from '../site';
+
+// 把照片放到 public/images/family.jpg 即可自动显示
+const photo = '/images/family.jpg';
+const hasPhoto = fs.existsSync(new URL('../../public/images/family.jpg', import.meta.url));
+---
+<Base title="关于" current="about" description="关于 SilkSong：程序员、丈夫，和一只喜乐蒂、一只英短蓝猫生活在一起。">
+  <div class="wrap about" id="about-root" data-lang="zh">
+    <div class="top">
+      <h1>
+        <span class="zh">关于我</span>
+        <span class="en" lang="en">About me</span>
+      </h1>
+      <div class="lang-switch" role="group" aria-label="切换语言 / Switch language">
+        <button type="button" data-set="zh" aria-pressed="true">中文</button>
+        <button type="button" data-set="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+
+    <figure class="photo">
+      <svg class="photo-leaf" width="120" height="120" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 26C6 15 13 6 26 6C26 19 17 26 6 26Z" style="fill:var(--green-mid)"></path></svg>
+      {hasPhoto ? (
+        <img src={photo} alt="SilkSong 和家人：妻子、喜乐蒂小火龙、英短蓝猫胖丁" loading="lazy" />
+      ) : (
+        <div class="photo-placeholder">
+          <Leaf size={28} />
+          <span class="zh">我们四个的合照</span>
+          <span class="en" lang="en">A photo of the four of us</span>
+          <code>public/images/family.jpg</code>
+        </div>
+      )}
+      <figcaption>
+        <span class="zh">我、我的妻子、小火龙和胖丁</span>
+        <span class="en" lang="en">Me, my wife, Charmander and Jigglypuff</span>
+      </figcaption>
+    </figure>
+
+    <section class="intro">
+      <div class="zh">
+        <p class="lead">你好，我是 SilkSong，一名程序员。</p>
+        <p>写代码是我的工作，也是我理解世界的一种方式。我热爱开源与 AI，最近正在认真学习 Agent 开发。这个博客是我思考、记录和分享的地方：技术上的折腾、学习路上的笔记，也有生活里的一些小事。</p>
+        <p>工作之外，我喜欢阅读、运动和亲近自然。书让我慢下来，运动让我保持清醒，而走进山野和树林，总能让我重新找到内心的平静，这也是这个博客的口号 <em lang="en">finding inner peace</em> 的由来。</p>
+        <p>我也是一位丈夫。家里还有两个毛孩子：一只喜乐蒂牧羊犬，叫小火龙；一只英短蓝猫，叫胖丁。</p>
+      </div>
+      <div class="en" lang="en">
+        <p class="lead">Hi, I'm SilkSong, a programmer.</p>
+        <p>Writing code is my job, and also one of the ways I make sense of the world. I love open source and AI, and lately I've been seriously learning how to build AI agents. This blog is where I think, take notes and share: technical experiments, learning notes, and small moments from everyday life.</p>
+        <p>Away from the keyboard, I enjoy reading, staying active and spending time in nature. Books slow me down, exercise keeps my head clear, and a walk through the hills or woods always brings me back to a quiet place inside, which is where this blog's motto, <em>finding inner peace</em>, comes from.</p>
+        <p>I'm also a husband, and we share our home with two furry friends: a Shetland Sheepdog named Charmander (小火龙) and a British Shorthair blue cat named Jigglypuff (胖丁).</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 class="h2"><Leaf /> <span class="zh">我喜欢</span><span class="en" lang="en">Things I love</span></h2>
+      <div class="cards three">
+        <div class="card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"></path><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"></path></svg>
+          <h3><span class="zh">阅读</span><span class="en" lang="en">Reading</span></h3>
+          <p><span class="zh">[在读或最爱的一本书]</span><span class="en" lang="en">[A book I'm reading or love]</span></p>
+        </div>
+        <div class="card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+          <h3><span class="zh">运动</span><span class="en" lang="en">Staying active</span></h3>
+          <p><span class="zh">[常做的运动，例如跑步、篮球]</span><span class="en" lang="en">[e.g. running, basketball]</span></p>
+        </div>
+        <div class="card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l4 8 5-5 5 15H2L8 3z"></path></svg>
+          <h3><span class="zh">自然</span><span class="en" lang="en">Nature</span></h3>
+          <p><span class="zh">[喜欢去的地方，例如徒步、露营]</span><span class="en" lang="en">[e.g. hiking, camping]</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 class="h2"><Leaf /> <span class="zh">家人</span><span class="en" lang="en">Family</span></h2>
+      <div class="cards three">
+        <div class="card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+          <h3><span class="zh">妻子</span><span class="en" lang="en">My wife</span></h3>
+          <p><span class="zh">[一句话写给她]</span><span class="en" lang="en">[A line about her]</span></p>
+        </div>
+        <div class="card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"></circle><circle cx="18" cy="8" r="2"></circle><circle cx="20" cy="16" r="2"></circle><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.05Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"></path></svg>
+          <h3><span class="zh">小火龙</span><span class="en" lang="en">Charmander</span></h3>
+          <p><span class="zh">喜乐蒂牧羊犬</span><span class="en" lang="en">Shetland Sheepdog</span></p>
+        </div>
+        <div class="card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"></path><path d="M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75Z"></path></svg>
+          <h3><span class="zh">胖丁</span><span class="en" lang="en">Jigglypuff</span></h3>
+          <p><span class="zh">英短蓝猫</span><span class="en" lang="en">British Shorthair, blue</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block last">
+      <h2 class="h2"><Leaf /> <span class="zh">找到我</span><span class="en" lang="en">Find me</span></h2>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:20px">
+        <a class="btn btn-ghost" href={SITE.github}>GitHub</a>
+        <a class="btn btn-ghost" href="/rss.xml">RSS</a>
+      </div>
+    </section>
+
+  </div>
+</Base>
+
+<script is:inline>
+  (() => {
+    const root = document.getElementById('about-root');
+    const btns = root.querySelectorAll('.lang-switch button');
+    const apply = (lang) => {
+      root.dataset.lang = lang;
+      document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+      btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.set === lang)));
+    };
+    let saved = null;
+    try { saved = localStorage.getItem('about-lang'); } catch (e) {}
+    apply(saved === 'en' || saved === 'zh' ? saved : (navigator.language || '').toLowerCase().startsWith('zh') ? 'zh' : 'en');
+    btns.forEach((b) => b.addEventListener('click', () => {
+      apply(b.dataset.set);
+      try { localStorage.setItem('about-lang', b.dataset.set); } catch (e) {}
+    }));
+  })();
+</script>
+
+<style>
+  .about { max-width: 760px; padding-top: 64px; }
+  .about[data-lang="zh"] .en, .about[data-lang="en"] .zh { display: none; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+  h1 { margin: 0; font-size: clamp(32px, 5vw, 48px); font-weight: 900; letter-spacing: -0.01em; }
+  .lang-switch { display: inline-flex; padding: 4px; border-radius: 999px; border: 1px solid var(--border); }
+  .lang-switch button { min-width: 56px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: none; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer; transition: background-color .25s, color .25s; }
+  .lang-switch button:hover { color: var(--green); }
+  .lang-switch button[aria-pressed="true"] { background: var(--green); color: var(--on-green); }
+
+  .photo { position: relative; margin: 40px 0 0; }
+  .photo-leaf { position: absolute; right: -28px; top: -36px; transform: rotate(18deg); pointer-events: none; }
+  .photo img, .photo-placeholder { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 20px; }
+  .photo img { transition: transform .5s ease; }
+  .photo:hover img { transform: scale(1.01); }
+  .photo-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: var(--green-soft); border: 1px dashed var(--border); color: var(--soft-text); font-size: 16px; }
+  .photo-placeholder code { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  figcaption { margin-top: 12px; font-size: 14px; color: var(--muted); text-align: center; }
+
+  .intro { margin-top: 48px; font-size: 17px; line-height: 1.95; color: var(--text); }
+  .intro p { margin: 0 0 1.2em; }
+  .intro .lead { font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1.5; }
+  .intro em { font-style: normal; color: var(--green); font-family: var(--mono); font-size: .92em; }
+
+  .block { margin-top: 56px; }
+  .block.last { padding-bottom: 96px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 20px; }
+  .card { padding: 22px 22px 20px; border-radius: 16px; border: 1px solid var(--line); color: var(--green); transition: border-color .25s, background-color .25s, transform .25s; }
+  .card:hover { border-color: var(--green); background: var(--card-hover); transform: translateY(-3px); }
+  .card svg { transition: transform .5s cubic-bezier(.3,1.6,.5,1); }
+  .card:hover svg { transform: rotate(-10deg) scale(1.1); }
+  .card h3 { margin: 14px 0 6px; font-size: 18px; color: var(--ink); }
+  .card p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted); }
+  @media (max-width: 640px) { .photo-leaf { right: -8px; width: 80px; height: 80px; } }
+</style>

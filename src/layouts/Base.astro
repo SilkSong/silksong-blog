@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import Leaf from '../components/Leaf.astro';
+import Motto from '../components/Motto.astro';
+import { SITE } from '../site';
+interface Props { title?: string; description?: string; current?: string }
+const { title, description = 'SilkSong 的个人博客：思考、记录、分享。', current } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.slogan}`;
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <script is:inline>
+    (() => {
+      let t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Zhi+Mang+Xing&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a href="/" class="logo">
+        <svg class="logo-mark" width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" style="fill:var(--green-soft)"></circle><path d="M8.5 23.5C8.5 14.5 14.5 8.5 24 8.5C24 18 18 23.5 8.5 23.5Z" style="fill:var(--green)"></path><path d="M8.5 23.5L18 14" style="stroke:var(--bg)" stroke-width="1.6" stroke-linecap="round"></path></svg>
+        <span class="logo-text">
+          <span class="logo-name">{SITE.name}</span>
+          <span class="logo-slogan" lang="en">{SITE.slogan}</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a class="nav-link" href="/#posts" aria-current={current === 'posts' ? 'page' : undefined}>文章</a>
+        <a class="nav-link" href="/archive/" aria-current={current === 'archive' ? 'page' : undefined}>归档</a>
+        <a class="nav-link" href="/tags/" aria-current={current === 'tags' ? 'page' : undefined}>分类</a>
+        <a class="nav-link" href="/about/" aria-current={current === 'about' ? 'page' : undefined}>关于</a>
+        <a class="nav-link" href="/rss.xml">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+          订阅
+        </a>
+        <button type="button" class="nav-link theme-toggle" id="theme-toggle" aria-label="切换明暗主题">
+          <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+          <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+  <main><slot /></main>
+  <footer class="site-footer">
+    <div class="wrap footer-motto"><Motto /></div>
+    <div class="wrap">
+      <span style="display:flex;align-items:center;gap:8px"><Leaf size={14} /> © {new Date().getFullYear()} {SITE.name} · <span lang="en">{SITE.slogan}</span></span>
+      <div style="display:flex;flex-wrap:wrap;gap:20px">
+        <a href="/rss.xml">RSS</a>
+        <a href={SITE.github}>GitHub</a>
+      </div>
+    </div>
+  </footer>
+  <script is:inline>
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  </script>
+</body>
+</html>
