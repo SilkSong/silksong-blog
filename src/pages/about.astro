@@ -1,12 +1,14 @@
 ---
-import fs from 'node:fs';
 import Base from '../layouts/Base.astro';
 import Leaf from '../components/Leaf.astro';
 import { SITE } from '../site';
 
-// 把照片放到 public/images/family.jpg 即可自动显示
-const photo = '/images/family.jpg';
-const hasPhoto = fs.existsSync(new URL('../../public/images/family.jpg', import.meta.url));
+// 把合照放到 src/assets/，命名为 family.jpg（或 .jpeg / .png / .webp）即可自动显示
+const found = Object.values(
+  import.meta.glob('../assets/family.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' })
+) as string[];
+const photo = found[0];
+const hasPhoto = Boolean(photo);
 ---
 <Base title="关于" current="about" description="关于 SilkSong：程序员、丈夫，和一只喜乐蒂、一只英短蓝猫生活在一起。">
   <div class="wrap about" id="about-root" data-lang="zh">
@@ -30,7 +32,7 @@ const hasPhoto = fs.existsSync(new URL('../../public/images/family.jpg', import.
           <Leaf size={28} />
           <span class="zh">我们四个的合照</span>
           <span class="en" lang="en">A photo of the four of us</span>
-          <code>public/images/family.jpg</code>
+          <code>src/assets/family.jpg</code>
         </div>
       )}
       <figcaption>
