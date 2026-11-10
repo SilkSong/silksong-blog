@@ -50,6 +50,6 @@ description: 一句话摘要，会显示在文章列表里
 1. 登录 [dash.cloudflare.com](https://dash.cloudflare.com) → Workers & Pages → 创建 → 导入 Git 仓库，选择 `silksong-blog`。
 2. 构建命令 `npm run build`，部署命令 `npx wrangler deploy`。Node 版本由 `.node-version` 指定。
 3. Worker 名称必须和 `wrangler.jsonc` 里的 `name` 一致：`silksong-blog`。
-4. 环境变量 `SITE_URL`（在构建变量里设置）：网站的正式地址，用于 RSS 链接，默认是 `https://silksong-blog.szxsilk.workers.dev`，以后绑定域名时再设置。
+4. 环境变量 `SITE_URL`（在构建变量里设置）：网站的正式地址，用于 RSS 链接，默认是 `https://silksong.me`。
 
 之后每次 `git push` 到 `main` 都会自动重新部署。
