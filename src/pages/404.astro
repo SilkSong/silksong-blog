@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Leaf from '../components/Leaf.astro';
+---
+<Base title="页面不存在">
+  <section class="wrap nf">
+    <Leaf size={48} />
+    <p class="code">404</p>
+    <h1>这片叶子被风吹走了</h1>
+    <p class="sub" lang="en">The page you're looking for isn't here.</p>
+    <div class="cta">
+      <a class="btn btn-dark" href="/">回到首页</a>
+      <a class="btn btn-ghost" href="/archive/">看看归档</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { padding-top: 120px; padding-bottom: 140px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+  .code { margin: 8px 0 0; font-family: var(--mono); font-size: 14px; color: var(--green); letter-spacing: .2em; }
+  h1 { margin: 0; font-size: clamp(26px, 4vw, 36px); font-weight: 900; }
+  .sub { margin: 0; color: var(--muted); font-style: italic; }
+  .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 24px; }
+</style>
