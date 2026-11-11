@@ -37,7 +37,7 @@ description: 一句话摘要，会显示在文章列表里
 |---|---|
 | `src/pages/` | 首页、文章页、归档、分类、关于、404、RSS |
 | `src/layouts/Base.astro` | 导航栏、页脚、明暗切换 |
-| `src/components/` | 文章列表行、叶子图标、页脚 slogan |
+| `src/components/` | 文章列表行、页脚 slogan |
 | `src/styles/global.css` | 全局样式和明暗主题的颜色 |
 | `src/site.ts` | 网站名、slogan、GitHub 链接 |
 | `src/assets/` | 关于页合照：放 `family.jpg` 即可显示 |

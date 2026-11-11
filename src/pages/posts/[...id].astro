@@ -90,8 +90,7 @@ const { Content } = await render(post);
   .prose { font-size: 17px; line-height: 1.95; color: var(--text); overflow-wrap: break-word; }
   .prose :global(p) { margin: 0 0 1.4em; }
   .prose :global(h2), .prose :global(h3), .prose :global(h4) { color: var(--ink); line-height: 1.4; margin: 2em 0 .8em; }
-  .prose :global(h2) { font-size: 26px; display: flex; align-items: center; gap: 10px; }
-  .prose :global(h2)::before { content: ""; flex: none; width: 16px; height: 16px; background: var(--green); clip-path: path('M3 13C3 7.5 6.5 3 13 3C13 9.5 8.5 13 3 13Z'); }
+  .prose :global(h2) { font-size: 26px; }
   .prose :global(h3) { font-size: 21px; }
   .prose :global(h4) { font-size: 18px; }
   .prose :global(a) { color: var(--green); text-underline-offset: 3px; }

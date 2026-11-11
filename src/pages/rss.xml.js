@@ -4,7 +4,7 @@ import { getPosts, excerpt, SITE } from '../site';
 export async function GET(context) {
   const posts = await getPosts();
   return rss({
-    title: SITE.name,
+    title: SITE.title,
     description: SITE.slogan,
     site: context.site,
     items: posts.map((p) => ({

@@ -2,6 +2,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export const SITE = {
   name: 'SilkSong',
+  title: "SilkSong's Blog",
   slogan: 'finding inner peace',
   github: 'https://github.com/SilkSong',
 };

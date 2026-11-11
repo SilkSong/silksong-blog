@@ -1,11 +1,10 @@
 ---
 import '../styles/global.css';
-import Leaf from '../components/Leaf.astro';
 import Motto from '../components/Motto.astro';
 import { SITE } from '../site';
 interface Props { title?: string; description?: string; current?: string }
 const { title, description = 'SilkSong 的个人博客：思考、记录、分享。', current } = Astro.props;
-const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.slogan}`;
+const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.title} · ${SITE.slogan}`;
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -26,7 +25,7 @@ const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.s
   <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+  <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Zhi+Mang+Xing&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" />
@@ -37,7 +36,7 @@ const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.s
       <a href="/" class="logo">
         <img class="logo-mark" src="/avatar.jpg" width="34" height="34" alt="" />
         <span class="logo-text">
-          <span class="logo-name">{SITE.name}</span>
+          <span class="logo-name">{SITE.title}</span>
           <span class="logo-slogan" lang="en">{SITE.slogan}</span>
         </span>
       </a>
@@ -61,7 +60,7 @@ const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.s
   <footer class="site-footer">
     <div class="wrap footer-motto"><Motto /></div>
     <div class="wrap">
-      <span style="display:flex;align-items:center;gap:8px"><Leaf size={14} /> © {new Date().getFullYear()} {SITE.name} · <span lang="en">{SITE.slogan}</span></span>
+      <span style="display:flex;align-items:center;gap:8px">© {new Date().getFullYear()} {SITE.name} · <span lang="en">{SITE.slogan}</span></span>
       <div style="display:flex;flex-wrap:wrap;gap:20px">
         <a href="/rss.xml">RSS</a>
         <a href={SITE.github}>GitHub</a>

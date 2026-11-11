@@ -109,8 +109,6 @@ a:hover { color: var(--green); }
 .site-footer .wrap { padding-block: 32px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; font-size: 14px; color: var(--muted); }
 .site-footer a { color: var(--muted); }
 
-.leaf-sway { transform-origin: 85% 90%; animation: sway 7s ease-in-out infinite; }
-@keyframes sway { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-4deg); } }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 

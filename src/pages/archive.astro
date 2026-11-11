@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import Leaf from '../components/Leaf.astro';
 import { getPosts, postUrl, formatDate } from '../site';
 const posts = await getPosts();
 const years = new Map<number, typeof posts>();
@@ -13,7 +12,7 @@ for (const p of posts) {
 <Base title="归档" current="archive">
   <section class="wrap" style="padding-top:72px;padding-bottom:96px">
     <div class="section-head">
-      <h2><Leaf /> 归档</h2>
+      <h2>归档</h2>
       <span style="font-family:var(--mono);font-size:14px;color:var(--muted)">共 {posts.length} 篇</span>
     </div>
     {[...years].map(([year, list]) => (
