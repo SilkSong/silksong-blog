@@ -9,7 +9,8 @@
   --border: #D4D4D0;
   --surface: #FFFFFF;
   --code-bg: #F4F4F1;
-  --pre-bg: #16181A;
+  --pre-bg: #F7F9F8;
+  --pre-head: #EEF3F0;
   --card-hover: #F6FBF8;
   --header-bg: rgba(255,255,255,.88);
   --green: #0E7A5A;
@@ -34,7 +35,8 @@
   --border: #36403B;
   --surface: #1A201D;
   --code-bg: #1E2421;
-  --pre-bg: #0B0E0D;
+  --pre-bg: #0D1110;
+  --pre-head: #141A17;
   --card-hover: #15201B;
   --header-bg: rgba(17,21,19,.85);
   --green: #4CC38A;

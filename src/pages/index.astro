@@ -27,7 +27,7 @@ const posts = await getPosts();
     </div>
   </section>
 
-  <section id="posts" class="wrap block">
+  <section id="posts" class="wrap block last">
     <div class="section-head">
       <h2><Leaf /> 全部文章</h2>
       <span class="count">{posts.length} 篇</span>
@@ -35,20 +35,6 @@ const posts = await getPosts();
     {posts.map((post) => <PostRow post={post} />)}
   </section>
 
-
-  <section id="subscribe" class="wrap block last">
-    <div class="sub">
-      <svg width="180" height="180" viewBox="0 0 32 32" aria-hidden="true" class="sub-leaf"><path d="M6 26C6 15 13 6 26 6C26 19 17 26 6 26Z" style="fill:var(--green-mid)"></path></svg>
-      <div style="position:relative;flex:1 1 360px;min-width:0">
-        <h2 style="margin:0 0 10px;font-size:26px">新文章发布时通知我</h2>
-        <p style="margin:0;font-size:16px;line-height:1.7;color:var(--soft-text)">用任意 RSS 阅读器订阅，不发广告，随时退订。</p>
-      </div>
-      <a class="btn btn-green" href="/rss.xml" style="position:relative">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
-        RSS 订阅
-      </a>
-    </div>
-  </section>
 </Base>
 
 <style>
@@ -64,7 +50,5 @@ const posts = await getPosts();
   .block { padding-bottom: 72px; }
   .block.last { padding-bottom: 96px; }
   .count { font-family: var(--mono); font-size: 14px; color: var(--muted); }
-  .sub { position: relative; overflow: hidden; background: var(--green-soft); border-radius: 20px; padding: 48px 40px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center; justify-content: space-between; }
-  .sub-leaf { position: absolute; left: -40px; bottom: -60px; opacity: .5; pointer-events: none; }
-  @media (max-width: 640px) { .hero-leaf { opacity: .5; } .sub { padding: 32px 24px; } }
+  @media (max-width: 640px) { .hero-leaf { opacity: .5; } }
 </style>

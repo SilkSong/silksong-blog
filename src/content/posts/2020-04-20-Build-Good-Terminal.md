@@ -59,7 +59,7 @@ alias unproxy="unset ALL_PROXY"`
 添加 `[http] proxy = socks5://127.0.0.1:7891` 这种情况适用于 `git clone https://项目.git` 的情况，注意：是没有必要添加` [https] proxy` 设置的，git 是没有 https_proxy 这个 config section 的。
 而对于 `git clone git@项目.git` 的情况，由于使用的是 SSH 协议，则需要在 ~/.ssh/config 目录下配置：
 
-```
+```ssh-config
 Host github.com
 ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p
 ```

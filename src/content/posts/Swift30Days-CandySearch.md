@@ -15,7 +15,7 @@ Swift30Projects-05-CandySearch 的一些经验总结。
 #### 代码方法：
 当你的 App 具有统一的 UI 的时候，可以直接在 `AppDelegate.swift` 的 
 
-```
+```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool 
 ```
 方法中进行全局设置，当然你也可以在子视图中通过
@@ -23,7 +23,7 @@ self.navigationController.navigationBar.tintColor 类似这样子的方式进行
 
 在本 App 中，我添加了一个 `UIColor` 的 extension 
 
-```
+```swift
 extension UIColor {
     static func candyGreen() -> UIColor {
         return UIColor(red: 67/225, green: 205/255, blue: 135/255, alpha: 1)
@@ -31,7 +31,7 @@ extension UIColor {
 ```
 然后，进行颜色的设置：
 
-```
+```swift
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         UINavigationBar.appearance().barTintColor = UIColor.candyGreen()
@@ -44,7 +44,7 @@ extension UIColor {
 
 因为 App 中有一个 `UISearchController`, 所以需要对 `SearchBar` 的颜色进行设置，其中 `barTintColor` 代表搜索条的**背景颜色**， `tintColor` 代表🔍栏处于编辑状态时，Cancel 按钮，光标，以及 `scopeButton`的颜色，在本 App 中设定为白色，但此时有一个问题，就是🔍栏的光标设为白色时，打字就无法显示光标，这显然很不友好，把它设为 `barTintColor` 的颜色是一种友好的解决方案，于是在上面代码的结尾处再加上
 
-```
+```swift
  UISearchBar.appearance().barTintColor =  UIColor.candyGreen()
  UISearchBar.appearance().tintColor = UIColor.white
  UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor.candyGreen()
@@ -61,7 +61,7 @@ Navigation Bar 返回按钮：Navigation Bar -> View -> Tint
 
 * searchController 的设置：
 
-```
+```swift
 let searchController = UISearchController(searchResultsController: nil)
 
 override func viewDidLoad() {
@@ -78,17 +78,17 @@ override func viewDidLoad() {
 * 在 tableView 的 dataSource 方法中 通过 `searchController.isActive` 来决定 cell 的配置
 
 * 
-```
+```swift
 func updateSearchResults(for searchController: UISearchController)
 ```
 用来实时显示搜索结果
 * 
-```
+```swift
 func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
 ```
 用来进行分类搜索，其中不要忘记设置
 
-```
+```swift
 searchController.searchBar.delegate = self
 ```
 

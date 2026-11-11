@@ -16,17 +16,17 @@ Swift30Days-03-ToDo, 在学习的过程中想总结一下一个简单的 ToDo �
 
 踏破铁鞋无觅处，得来全不费工夫。原来 `UIViewController` 自身就有一个这样子的属性, Cocoa 已经全部帮你实现好了其基本的功能。所以只需要
 
-```
+```swift
 navigationItem.leftBarButtonItem = self.editButtonItem
 ```
 就可以创建好这个 Edit Button。
 接下来需要做的就只是具体实现删除，排序两个方法。只需要 override 
 
-```
+```swift
  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) 
 ```
 
-```
+```swift
  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 ```
@@ -37,7 +37,7 @@ navigationItem.leftBarButtonItem = self.editButtonItem
 ![DataView.png](https://i.loli.net/2020/04/20/CbRWhyZ2QLuaviX.png)
 一个 `TableView` 当没有数据的时候，展示一个 "No data currently Availabel" 的视图，当添加上数据的时候，再重新展示一个 TableView 是一个很友好的体验。在这个过程中，其思路是通过判断 `numberOfSections`, 当没有数据的时候，section   数量为0，重新设定 backgroundView, 当有数据的时候，section 数量为一。 具体代码如下：
 
-```
+```swift
  override func numberOfSections(in tableView: UITableView) -> Int {
         
         var numbOfSections = 0
@@ -60,7 +60,7 @@ navigationItem.leftBarButtonItem = self.editButtonItem
 一切都运行正常，当视图一开始没有数据的时候，TableView 会展示一个提示，当添加一个数据的时候，会重新出现一行行的 cell。但是我发现当删除最后一行 cell 的时候，程序崩溃了！
 经过查看 Log 和 搜索，发现原来当 `tableView.deleteRows(at: [indexPath], with: .top)` 删除最后一行 cell  的时候，numberofSections 就变成了0，然而 deleteRows 并不会删除 Section，所以程序崩溃掉了。一个简单的做法就是在对数据操作完成后，直接 `tableView.reloadData()` 但是这样一是面对数量较大的视图的时候，特别的耗费性能，其次这样子无法展示 rows 被删除的动画效果，给人感觉太突兀。所以这绝对算不上一个好的解决方法。正确的做法是在本方法内调用 `deleteSections` 方法, 具体如下：
 
-```
+```swift
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             todoList.remove(at: indexPath.row)

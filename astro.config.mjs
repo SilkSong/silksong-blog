@@ -7,6 +7,11 @@ const site = process.env.SITE_URL || 'https://silksong.me';
 export default defineConfig({
   site,
   markdown: {
-    shikiConfig: { theme: 'github-dark-default' },
+    shikiConfig: {
+      // 明暗两套配色，跟随网站主题切换（见文章页样式）
+      themes: { light: 'github-light', dark: 'github-dark-default' },
+      defaultColor: false,
+      wrap: false,
+    },
   },
 });

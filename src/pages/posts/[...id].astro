@@ -1,8 +1,7 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import Leaf from '../../components/Leaf.astro';
-import { getPosts, formatDate, readingTime, tagUrl, postUrl, SITE } from '../../site';
+import { getPosts, formatDate, readingTime, tagUrl, postUrl } from '../../site';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -30,21 +29,45 @@ const { Content } = await render(post);
     <div class="divider"></div>
     <div class="prose"><Content /></div>
 
-    <div class="author">
-      <div class="avatar"><svg width="40" height="40" viewBox="0 0 32 32" aria-hidden="true"><path d="M8.5 23.5C8.5 14.5 14.5 8.5 24 8.5C24 18 18 23.5 8.5 23.5Z" style="fill:var(--green)"></path><path d="M8.5 23.5L18 14" style="stroke:var(--surface)" stroke-width="1.6" stroke-linecap="round"></path></svg></div>
-      <div lang="en" style="flex:1 1 280px;min-width:0">
-        <p style="margin:0;font-size:17px;font-weight:700">{SITE.name}</p>
-        <p style="margin:6px 0 0;font-size:15px;line-height:1.7;color:var(--soft-text)">Programmer. Open source &amp; AI enthusiast, currently learning to build AI agents.</p>
-      </div>
-      <a class="btn btn-green" href="/rss.xml" style="min-height:44px">订阅更新</a>
-    </div>
-
     <nav class="pager" aria-label="上一篇和下一篇">
       {newer ? <a class="card" href={postUrl(newer)}><span class="lbl">← 较新一篇</span><span class="t">{newer.data.title}</span></a> : <span></span>}
       {older && <a class="card right" href={postUrl(older)}><span class="lbl">较早一篇 →</span><span class="t">{older.data.title}</span></a>}
     </nav>
   </article>
 </Base>
+
+<script>
+  // 给每个代码块加顶栏：语言名 + 复制按钮
+  const names: Record<string, string> = { swift: 'Swift', bash: 'Bash', 'ssh-config': 'SSH Config', plaintext: 'Text' };
+  document.querySelectorAll<HTMLPreElement>('.prose pre').forEach((pre) => {
+    const lang = pre.dataset.language || 'plaintext';
+    const wrap = document.createElement('div');
+    wrap.className = 'code-block';
+    const head = document.createElement('div');
+    head.className = 'code-head';
+    const label = document.createElement('span');
+    label.className = 'code-lang';
+    label.textContent = names[lang] ?? lang;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'code-copy';
+    btn.textContent = '复制';
+    btn.setAttribute('aria-label', '复制代码');
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText.replace(/\n$/, ''));
+        btn.textContent = '已复制';
+        btn.classList.add('done');
+      } catch {
+        btn.textContent = '复制失败';
+      }
+      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('done'); }, 1600);
+    });
+    head.append(label, btn);
+    pre.replaceWith(wrap);
+    wrap.append(head, pre);
+  });
+</script>
 
 <style>
   .article { max-width: 720px; margin: 0 auto; padding: 56px 24px 64px; }
@@ -57,9 +80,7 @@ const { Content } = await render(post);
   .mark { background-image: linear-gradient(var(--green-mid), var(--green-mid)); background-repeat: no-repeat; background-position: 0 88%; background-size: 0% 35%; transition: background-size .6s ease; }
   h1:hover .mark { background-size: 100% 35%; }
   .divider { height: 1px; background: var(--line); margin: 36px 0; }
-  .author { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-top: 56px; padding: 28px; border-radius: 20px; background: var(--green-soft); }
-  .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; flex: 0 0 64px; }
-  .pager { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 40px; }
+  .pager { padding-top: 40px; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 40px; }
   .card { display: flex; flex-direction: column; gap: 6px; padding: 20px 24px; border-radius: 16px; border: 1px solid var(--line); text-decoration: none; transition: border-color .25s, background-color .25s, transform .25s; }
   .card:hover { border-color: var(--green); background: var(--card-hover); transform: translateY(-3px); }
   .card.right { text-align: right; }
@@ -76,9 +97,21 @@ const { Content } = await render(post);
   .prose :global(a) { color: var(--green); text-underline-offset: 3px; }
   .prose :global(a:hover) { color: var(--green-deep); }
   .prose :global(img) { max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 1.6em auto; }
-  .prose :global(:not(pre) > code) { font-family: var(--mono); font-size: .88em; padding: 2px 6px; border-radius: 6px; background: var(--code-bg); }
-  .prose :global(pre) { margin: 0 0 1.6em; padding: 20px 24px; border-radius: 14px; background: var(--pre-bg) !important; border: 1px solid var(--line); font-family: var(--mono); font-size: 14px; line-height: 1.7; overflow-x: auto; }
-  .prose :global(pre code) { font-family: var(--mono); }
+  .prose :global(:not(pre) > code) { font-family: var(--mono); font-size: .86em; padding: 2px 6px; border-radius: 6px; background: var(--code-bg); border: 1px solid var(--line); color: var(--green-deep); overflow-wrap: anywhere; }
+
+  /* 代码块：明暗两套 Shiki 配色，外层卡片 + 顶栏（语言、复制按钮） */
+  .prose :global(pre) { margin: 0 0 1.6em; padding: 18px 22px; border-radius: 14px; background: var(--pre-bg) !important; border: 1px solid var(--line); font-family: var(--mono); font-size: 13.5px; line-height: 1.75; tab-size: 4; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .prose :global(pre code) { font-family: var(--mono); font-variant-ligatures: none; }
+  .prose :global(.astro-code), .prose :global(.astro-code span) { color: var(--shiki-light); font-style: var(--shiki-light-font-style); font-weight: var(--shiki-light-font-weight); }
+  :global(:root[data-theme="dark"]) .prose :global(.astro-code), :global(:root[data-theme="dark"]) .prose :global(.astro-code span) { color: var(--shiki-dark); font-style: var(--shiki-dark-font-style); font-weight: var(--shiki-dark-font-weight); }
+  .prose :global(.code-block) { margin: 0 0 1.6em; border: 1px solid var(--line); border-radius: 14px; background: var(--pre-bg); overflow: hidden; }
+  .prose :global(.code-block pre) { margin: 0; border: 0; border-radius: 0; }
+  .prose :global(.code-head) { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 6px 4px 16px; background: var(--pre-head); border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .prose :global(.code-lang) { display: inline-flex; align-items: center; gap: 8px; letter-spacing: .04em; }
+  .prose :global(.code-lang)::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+  .prose :global(.code-copy) { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 10px; border: 0; border-radius: 8px; background: none; font: inherit; color: var(--muted); cursor: pointer; transition: color .2s, background-color .2s; }
+  .prose :global(.code-copy:hover) { color: var(--green); background: var(--code-bg); }
+  .prose :global(.code-copy.done) { color: var(--green); }
   .prose :global(blockquote) { margin: 1.6em 0; padding: 4px 0 4px 36px; position: relative; color: var(--ink); }
   .prose :global(blockquote)::before { content: "“"; position: absolute; left: 0; top: -14px; font-size: 48px; line-height: 1; color: var(--green); }
   .prose :global(blockquote p) { margin: 0 0 .6em; }

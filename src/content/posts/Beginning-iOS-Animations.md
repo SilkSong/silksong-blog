@@ -12,7 +12,7 @@ description: 一直对 iOS 的动画很感兴趣，美好的交互体验的确�
 `layoutIfNeeded()` 会对于 layout 的每一个视图更新 center, bounds, 任何一个可以动画化的改变都会发生动画效果，因为 bounds 是一个 animatable property, 即使 textLabel 的文字瞬间变化，它的 size 可能不能立刻赶上它的内容, 于是在你自定义的 animation.duration 里面它会完成这个动画效果，如：
 可以对一个视图的 constraint outlet 进行三元操作，然后定义一个基本的动画效果 
 
-```
+```swift
 titleLabel.text = isMenuOpen:  "Select Item" : "Picking List" 
 MenuHeightConstraint.constant = isMenuOpen ？ 200 : 60
 
@@ -45,7 +45,7 @@ Damping: 震动越大，越接近于 0。不过，值的设定还是会带来显
 ### View Transitions
 实例代码：
 
-```
+```swift
 UIView.transition(
         with: imageView,
         duration: 1.0,
@@ -88,7 +88,7 @@ UIView.transition(
  3. Update background view and remove helper view 
 
 
-```
+```swift
 let overlayView = UIImageView(frame: bgImageView.frame)
     overlayView.image = toImage
     overlayView.alpha = 0.0
@@ -119,7 +119,7 @@ let overlayView = UIImageView(frame: bgImageView.frame)
 
 ### Intermediate View Animations
 
-```
+```swift
 func moveLabel(
     label: UILabel,
     text: String,
@@ -189,12 +189,12 @@ func moveLabel(
 当然，其实具体的实现是非常的复杂..
 这个过程中，有一个小坑，就是往往在第一步里面，我们需要设置好所有想要动画的试图的起始状态，比如说它的位置，它的大小，而往往它的 frame 和我们在 animator 里通过 containerView 调用的 frame 并不在统一坐标系里面，所以会造成动画效果失败，这时, 可以通过调用 
 
-```
+```swift
 convert(_ rect: to view:) 
 ```
 它的作用在于将一个 矩形从 receiver 的坐标系转移到另一个视图所在的坐标系，如何其设置为 nil, 则会转移到 window 所在的坐标系，这个坐标系也往往会和进行转场动画所在的 VC 的坐标系相同。例子：
 
-```
+```swift
 transition.originFrame = selectedImage!.superview!.convert(  selectedImage!.frame,to: nil )
 ```
 

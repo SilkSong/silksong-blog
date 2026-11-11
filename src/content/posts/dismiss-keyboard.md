@@ -11,7 +11,7 @@ description:  我一直思考在 iOS 应用中隐藏键盘的所有方法，并�
 **First Way**:  实现 `textFieldShouldReturn` delegate 来隐藏键盘
 
 
-```
+```swift
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
        textField1.resignFirstResponder()
        textField2.resignFirstResponder() 
@@ -24,7 +24,7 @@ description:  我一直思考在 iOS 应用中隐藏键盘的所有方法，并�
 **Second Way**: 在 `textFieldShouldReture` 实现里，你可以直接调用 self.view 方法 `endEditing` 
 
 
-```
+```swift
 func textFieldShouldReturn(textField: UITextField) -> Bool {
    self.view.endEditing(true)
    return true;
@@ -36,7 +36,7 @@ func textFieldShouldReturn(textField: UITextField) -> Bool {
 解决方法可以是在键盘上方添加一个 `UIToolbar` 然后设置一个目标方法
 
 
-```
+```swift
 override func viewDidLoad() {
    super.viewDidLoad()
    //init toolbar
@@ -58,7 +58,7 @@ override func viewDidLoad() {
 **Best Way**:
 有什么能比单指点按 view controller 任何地方来隐藏键盘更好的呢？只需要一行代码就能完成我们的目的。
 
-```
+```swift
 self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
 ```
 是它么？
@@ -66,7 +66,7 @@ self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action:
 正如本叔叔（Uncle Ben) 所说，“更大的权利伴随着更大的责任”，如果你正在处理 Table Views 并在上面添加 Tap 手势, 那么你可能会遇到一些问题。问题在于当选中某一行时，`didSelectRowAtIndex` 可能不会触发知道长按。
 所以这里有一个解决方法。将上述代码改成下面：
 
-```
+```swift
 let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))
 tap.cancelsTouchesInView = false
 self.view.addGestureRecognizer(tap)

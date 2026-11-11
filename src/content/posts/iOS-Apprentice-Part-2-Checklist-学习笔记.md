@@ -9,7 +9,7 @@ description: 前段时间学习了 Ray 家的 iOS Apprentice Part 2 Checklists, 
 ### View 之间的传值
 因为 Checklists 本身是一个基本的 TableView 应用, 所以我主要是想熟练掌握如何在不同 View 之间传值，如何处理 Model, View 和 Controller 之间的关系。在 App 里应用最多的一个场景，是通过一个 TableViewController, 触发一个 Segue, push modally 到下一个 TableViewController, 此时如何将下级的 Controller 里的数据传回上级，就成了一个问题。以 `ItemDetailViewControllre` 举例，此时可以定义一个 protocol, 
 
-```
+```swift
 protocol ItemDetailViewControllerDelegate: class {
     func ItemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
     func ItemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem)
@@ -26,7 +26,7 @@ protocol ItemDetailViewControllerDelegate: class {
 倘若不写 saving and loading 相应的代码，app 一旦从内存中移除或者闪退，写下的数据就会丢失，所以需要实现这种功能，保证下次用户打开 App 可以保留原始的数据
 返回 .plist 文件储存位置的方法：
 
-```
+```swift
     func documentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
@@ -38,7 +38,7 @@ protocol ItemDetailViewControllerDelegate: class {
 ```
 将数据具体编码（encoding) 和解码（decoding)的方法：
 
-```
+```swift
    func saveChecklists() {
         let data = NSMutableData()
         let archiver = NSKeyedArchiver(forWritingWith: data)
@@ -61,7 +61,7 @@ protocol ItemDetailViewControllerDelegate: class {
 ### init 方法的正确书写方法
 iOS 的类可能会有很多初始化函数，还有各种诸如 *convenience* 和 *required* 的修饰符，还涉及负责的继承问题。想要一时间彻底弄懂也并非易事，一种标准的 init 方法编写规范是：
 
-```
+```swift
  init() {
   // Put values into your instance variables and constants
   super.init()
@@ -82,7 +82,7 @@ iOS 的类可能会有很多初始化函数，还有各种诸如 *convenience* �
    *  让敲键盘回车具有和点按 按钮Done 具有一样的效果：讲 **Send Events** 里面的 *Did End on Exit* 连接到相应的动作
    *  通过将 Controller 继承 `UITextFieldDelegate` 协议，检测是否新输入文字，将 done 按钮设置为只有键盘输入文字才能点按
 
-```
+```swift
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let oldText = textField.text! as NSString
         let newText = oldText.replacingCharacters(in: range, with: string) as NSString
