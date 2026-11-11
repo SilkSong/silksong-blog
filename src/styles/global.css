@@ -61,7 +61,7 @@ a:hover { color: var(--green); }
 .site-header { border-bottom: 1px solid var(--line); background: var(--header-bg); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
 .site-header .wrap { padding-block: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
 .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; min-height: 44px; }
-.logo-mark { transition: transform .6s cubic-bezier(.3,1.6,.5,1); }
+.logo-mark { flex: none; display: block; width: 34px; height: 34px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--green-soft); transition: transform .6s cubic-bezier(.3,1.6,.5,1); }
 .logo:hover .logo-mark { transform: rotate(-18deg) scale(1.08); }
 .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
 .logo-name { font-weight: 700; font-size: 18px; color: var(--ink); }
