@@ -9,7 +9,9 @@ Swift30Projects-05-CandySearch 的一些经验总结。
 
 ### Color 设置
 在这个项目里我遇到的一个大问题就是在`NavigationController` - `UITableViewController` - `UITableViewController` 其中还包括 `UISearchController` 的结构中各种颜色设置问题。搜索了很多，也摸索了很多，在这里总结一下。
-![Navigation.png](https://i.loli.net/2020/04/20/XUDyJrafPzNoFQO.png)
+
+![Navigation Bar 各部分对应的属性：返回按钮 tintColor、标题 titleTextAttributes、背景 barTintColor](./navigation-bar-views.png)
+
 这张图可以清晰的看出一个 navigation Bar 上面的各种视图包括：返回按钮，背景，标题，分别由哪种属性定义
 
 #### 代码方法：

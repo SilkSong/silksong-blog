@@ -34,7 +34,8 @@ navigationItem.leftBarButtonItem = self.editButtonItem
 
 ### No Data BackGroundView
 
-![DataView.png](https://i.loli.net/2020/04/20/CbRWhyZ2QLuaviX.png)
+![Todo List 列表为空时显示 “No data is currently available” 的提示视图](./no-data-view.png)
+
 一个 `TableView` 当没有数据的时候，展示一个 "No data currently Availabel" 的视图，当添加上数据的时候，再重新展示一个 TableView 是一个很友好的体验。在这个过程中，其思路是通过判断 `numberOfSections`, 当没有数据的时候，section   数量为0，重新设定 backgroundView, 当有数据的时候，section 数量为一。 具体代码如下：
 
 ```swift

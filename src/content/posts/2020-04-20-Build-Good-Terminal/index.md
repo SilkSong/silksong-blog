@@ -34,7 +34,9 @@ Oh-My-Zsh 本身提供了很多的主题可供选择，他们都在 ohmyzsh/them
 `source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh`
 
 输入 `source ~/.zshrc` 或者重启终端，你终于可以对着电脑屏幕说一句 “你看起来真好看！”
-![J1G0eK.png](https://s1.ax1x.com/2020/04/20/J1G0eK.png)
+
+![配置好 Dracula 主题和语法高亮后的终端，正在执行 git 命令](./dracula-theme.png)
+
 Oh-My-Zsh 还提供了很多人性化的功能，比如
 
  * 输入目录名即可进入，不用 cd，输入 .. 即可到上级目录，返回上次目录输入 -
@@ -54,7 +56,9 @@ alias unproxy="unset ALL_PROXY"`
 
 其中 7891 是我本地的 Socks5 代理端口，你自己的端口可以通过你的代理软件或者你的网络偏好设置查看。
 可以用过 `curl ip.gs` 的方式进行验证，可以发现，输入 `proxy` 之后，IP地址已经变更，输入 `unproxy` 之后 IP 地址恢复。
-![J1GDoD.png](https://s1.ax1x.com/2020/04/20/J1GDoD.png)
+
+![用 curl ip.gs 验证：开启 proxy 后 IP 变了，取消后恢复原来的 IP](./proxy-check.png)
+
 另外，还可以对 Git 进行单独设置：`open ~/.gitconfig` 打开 Git 配置文件，
 添加 `[http] proxy = socks5://127.0.0.1:7891` 这种情况适用于 `git clone https://项目.git` 的情况，注意：是没有必要添加` [https] proxy` 设置的，git 是没有 https_proxy 这个 config section 的。
 而对于 `git clone git@项目.git` 的情况，由于使用的是 SSH 协议，则需要在 ~/.ssh/config 目录下配置：
@@ -65,7 +69,9 @@ ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p
 ```
 
 可以看到设置好的终端通过 SSH clone 大型项目的时候，速度轻松达到了 2.3MB/s
-![J1GBdO.png](https://s1.ax1x.com/2020/04/20/J1GBdO.png)
+
+![通过 SSH 代理 clone tensorflow 仓库，下载速度约 2.3 MiB/s](./ssh-clone-speed.png)
+
 ## 总结
 
 以上就是一个简单的，好看的，设置代理的 Oh-My-Zsh 终端的整个配置过程，踩了很多坑，终于达到了一个 “合格” 的效果。Oh-My-Zsh 框架还有很多值得去探索，工具的打磨到头来一定会提升自己的工作效率。
